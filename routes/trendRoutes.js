@@ -1,12 +1,27 @@
+// src/routes.js
 import express from 'express';
-import { getTrends, addTrends } from '../controllers/trendController.js';
+import {
+  getMultipleTopicsData,
+  getSingleTopicData,
+} from '../controllers/topicController.js';
+import GoogleTrend from '../models/GoogleTrend.js';
 
 const router = express.Router();
 
-// GET: Fetch all trends
-router.get('/', getTrends);
+router.get('/', async (req, res) => {
+  try {
+    const trends = await GoogleTrend.find();
+    res.json(trends);
+  } catch (error) {
+    console.error('Error fetching trends from database:', error);
+    res.status(500).send('Internal server error');
+  }
+});
 
-// POST: Add new trends
-router.post('/add', addTrends);
+// Route for getting data for multiple topics
+router.get('/topics', getMultipleTopicsData);
+
+// Route for getting data for a single topic
+router.get('/topics/:topic', getSingleTopicData);
 
 export default router;

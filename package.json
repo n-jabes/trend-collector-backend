@@ -19,6 +19,7 @@
     "google-trends-api": "^4.9.2",
     "mongoose": "^8.8.1",
     "node-schedule": "^2.1.1",
+    "puppeteer": "^23.8.0",
     "twit": "^2.2.11"
   },
   "devDependencies": {
